@@ -35,13 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 if Agent.shared.binaryLocation == nil {
                     SPIndicator.present(
-                        title: "Auxiliary Agent Missing",
+                        title: "辅助代理缺失",
                         preset: .error,
                         haptic: .error
                     )
                 } else {
                     SPIndicator.present(
-                        title: "Agent Error Permit",
+                        title: "代理许可错误",
                         preset: .error,
                         haptic: .error
                     )
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options _: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
-        UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+        UISceneConfiguration(name: "默认配置", sessionRole: connectingSceneSession.role)
     }
 
     func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {

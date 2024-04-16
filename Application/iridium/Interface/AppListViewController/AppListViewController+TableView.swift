@@ -55,9 +55,9 @@ extension AppListViewController: UITableViewDelegate, UITableViewDataSource {
                                 },
                                 dataSource:
                                 [
-                                    "Decrypt Now",
-                                    "Filza Open Bundle",
-                                    "Cancel",
+                                    "立即解密",
+                                    "Filza 打开",
+                                    "取消解密",
                                 ]
                                 .invisibleSpacePadding())
         DispatchQueue.main.async {

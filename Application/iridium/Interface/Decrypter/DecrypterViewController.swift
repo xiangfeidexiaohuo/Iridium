@@ -26,7 +26,7 @@ class DecrypterViewController: UIViewController {
 
         isModalInPresentation = true
         view.backgroundColor = .systemBackground
-        title = "Console"
+        title = "控制台"
 
         textView.backgroundColor = .clear
         textView.clipsToBounds = false
@@ -48,7 +48,7 @@ class DecrypterViewController: UIViewController {
 
         if navigationController == nil {
             let bigTitle = UILabel()
-            bigTitle.text = "Console"
+            bigTitle.text = "控制台"
             bigTitle.font = .systemFont(ofSize: 28, weight: .bold)
             view.addSubview(bigTitle)
             bigTitle.snp.makeConstraints { x in
@@ -66,7 +66,7 @@ class DecrypterViewController: UIViewController {
             }
         }
 
-        textView.text = "Preparing operations...\n\n"
+        textView.text = "准备操作...\n\n"
 
         let completeIcon = UIImageView()
         let completeButton = UIButton()
@@ -115,8 +115,8 @@ class DecrypterViewController: UIViewController {
                     self.appendLog(str: str)
                 }
             } else {
-                self.appendLog(str: "Malformed application datagram.\n")
-                self.appendLog(str: "Missing parameter for bundle url when calling \(#function).\n")
+                self.appendLog(str: "应用程序数据格式错误\n")
+                self.appendLog(str: "调用时缺少包名url参数 \(#function).\n")
             }
             DispatchQueue.main.async {
                 self.activeCompleteButton()
@@ -149,7 +149,7 @@ class DecrypterViewController: UIViewController {
 
     func buildActionList() -> [ExitAction] {
         [
-            .init(text: "AirDrop",
+            .init(text: "隔空投送",
                   available: {
                       self.decryptResult != nil
                   },
@@ -170,14 +170,14 @@ class DecrypterViewController: UIViewController {
                           completion: nil
                       )
                   }),
-            .init(text: "Open in Filza",
+            .init(text: "在Filza打开",
                   available: {
                       self.decryptResult != nil
                   },
                   action: { _ in
                       self.decryptResult?.openInFilza()
                   }),
-            .init(text: "Exit",
+            .init(text: "退出",
                   available: {
                       true
                   },

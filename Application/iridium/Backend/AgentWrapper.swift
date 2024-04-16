@@ -47,7 +47,7 @@ class Agent {
         }
         set {
             _foulOptionStore = newValue.rawValue
-            debugPrint("setting new backend \(_foulOptionStore)")
+            debugPrint("设置新后端 \(_foulOptionStore)")
         }
     }
 
@@ -56,17 +56,17 @@ class Agent {
         binaryLocation = nil
         defer {
             if let binary = binaryLocation {
-                debugPrint("found binary at \(binary)")
+                debugPrint("发现二进制文件位于 \(binary)")
             } else {
                 #if DEBUG
-                    debugPrint("binary for auxiliary agent was not found, ignored due to debug build")
+                    debugPrint("未找到辅助代理的二进制文件，由于调试构建而被忽略")
                     binaryLocation = URL(fileURLWithPath: "/\(UUID().uuidString)")
                 #else
-                    fatalError("could not find auxiliary agent on system")
+                    fatalError("系统上找不到辅助代理")
                 #endif
             }
         }
-        debugPrint("building binary location")
+        debugPrint("构建二进制位置")
         repeat {
             let bundleAgent = Bundle
                 .main
@@ -140,8 +140,8 @@ class Agent {
             if Thread.isMainThread {
                 fatalError(
                     """
-                    this function should not be called from main thread
-                    because we are asking for user interaction later if failure occurred
+                    不应从主线程调用此函数
+                    因为如果发生故障，会要求用户稍后进行交互。
                     """
                 )
             }
@@ -153,7 +153,7 @@ class Agent {
         let originalBundleLocation = app.bundleURL
         output("TARGET:\n\(originalBundleLocation.path)\n")
         guard let binaryLocation = binaryLocation else {
-            output("\n\nAuxiliary Binary Not Found\n\n")
+            output("\n\n未找到辅助二进制文件\n\n")
             return nil
         }
         defer {
@@ -161,18 +161,18 @@ class Agent {
                 output("\n\n")
                 output(
                     """
-                    Resign and install may still need additional patch to package payload. You are on your own making those patches.
+                    重签并安装可能仍然需要额外的补丁来打包，自行打补丁。
                     """
                 )
                 output("\n\n")
                 if possibleFailure {
                     output("\n\n==========\n\n")
-                    output("Invalid recipe was detected from backend!\n")
-                    output("Use this package with caution!\n")
+                    output("从后端检测到无效方案！\n")
+                    output("请谨慎使用此软件包！\n")
                     output("\n\n==========\n\n")
                 }
             }
-            output("\n\n[Process Completed]\n\n")
+            output("\n\n[流程已完成]\n\n")
         }
 
         // MARK: - STEP 1 - Make a copy of the bundle container
@@ -190,7 +190,7 @@ class Agent {
             attributes: nil
         )
         defer {
-            output("\n[*] Cleaning temporary directory...\n")
+            output("\n[*] 清理临时目录...\n")
             let recipe = AuxiliaryExecute.spawn(
                 command: binaryLocation.path,
                 args: ["delete", zipContainer.path],
@@ -211,7 +211,7 @@ class Agent {
 
         // MARK: - STEP 2 - Enumerate entire app bundle to find all mach objects
 
-        output("\nSearching for mach objects...\n")
+        output("\n搜索mach对象...\n")
 
         var binaries = [(URL, URL)]() // the orig binary is at .0 and we decrypt it to .1
         repeat {
@@ -249,9 +249,9 @@ class Agent {
         // MARK: - STEP 3 - Decide which fouldecrypt should be used
 
         let foulBinary = foulOptionToUrl(with: foulOption)
-        output("\n\n[*] Selecting backend \(foulBinary.path)\n\n")
+        output("\n\n[*] 选择后端 \(foulBinary.path)\n\n")
         for (origBinary, destBinary) in binaries {
-            output("\n[*] Calling decryption on \(origBinary.lastPathComponent)\n")
+            output("\n[*] 调用解密 \(origBinary.lastPathComponent)\n")
             let recipe = AuxiliaryExecute.spawn(
                 command: binaryLocation.path,
                 args: [
@@ -268,7 +268,7 @@ class Agent {
             if recipe.exitCode != 0 || recipe.error != nil {
                 possibleFailure = true
                 if let error = recipe.error {
-                    output("\n[*] AuxiliaryExecute Error: \(error.localizedDescription)")
+                    output("\n[*] 辅助执行错误： \(error.localizedDescription)")
                 }
                 output("\n[*] stdout\n")
                 output(recipe.stdout)
@@ -283,12 +283,12 @@ class Agent {
             var shouldExit = true
             let sem = DispatchSemaphore(value: 0)
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "⚠️", message: "Error occurred during decryption", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ignore", style: .destructive, handler: { _ in
+                let alert = UIAlertController(title: "⚠️", message: "解密时发生错误", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "忽略", style: .destructive, handler: { _ in
                     shouldExit = false
                     sem.signal()
                 }))
-                alert.addAction(UIAlertAction(title: "Exit", style: .cancel, handler: { _ in
+                alert.addAction(UIAlertAction(title: "退出", style: .cancel, handler: { _ in
                     shouldExit = true
                     sem.signal()
                 }))
@@ -306,7 +306,7 @@ class Agent {
             }
             sem.wait()
             if shouldExit {
-                output("\n\n[*] Package process interrupted\n")
+                output("\n\n[*] 打包过程中断\n")
                 wasInterrupted = true
                 return nil
             }
@@ -334,7 +334,7 @@ class Agent {
         try? FileManager.default.removeItem(at: zipTarget)
 
         var currentProgress = [String]()
-        output("\n\n[*] Creating archive at \(zipTarget.path)\n\n")
+        output("\n\n[*] 创建解密包，存档于 \(zipTarget.path)\n\n")
 
         let requiredDot = 25 // 4 percent each lol
         output(
@@ -346,7 +346,7 @@ class Agent {
             atPath: zipTarget.path,
             withContentsOfDirectory: zipContainer.path,
             keepParentDirectory: false,
-            compressionLevel: 0,
+            compressionLevel: 9,
             password: nil,
             aes: false
         ) { entryNumber, total in
@@ -375,7 +375,7 @@ class Agent {
         case .unspecified:
             let get = decideUnspecifiedFoulBackend()
             if get == .unspecified {
-                fatalError("malformed control flow")
+                fatalError("control格式错误")
             }
             return foulOptionToUrl(with: get)
         }
@@ -408,7 +408,7 @@ class Agent {
             debugPrint(recipe)
         }
         SPIndicator.present(
-            title: "Packages Cleared",
+            title: "软件包已清理",
             preset: .done,
             haptic: .success
         )

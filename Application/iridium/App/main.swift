@@ -18,7 +18,7 @@ private let availableDirectories = FileManager
 public let documentsDirectory = availableDirectories[0]
     .appendingPathComponent("wiki.qaq.iridium")
 if documentsDirectory.path.count < 2 {
-    fatalError("malformed system resources")
+    fatalError("系统资源格式错误")
 }
 
 try? FileManager.default.createDirectory(

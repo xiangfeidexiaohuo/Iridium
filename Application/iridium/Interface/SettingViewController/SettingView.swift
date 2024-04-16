@@ -16,7 +16,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Settings"
+        title = "设置"
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { x in
@@ -71,7 +71,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             }
         case 3:
             let view = makeLeftAligButton()
-            view.setTitle("Open Packages In Filza", for: .normal)
+            view.setTitle("Filza查看解密包", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -82,7 +82,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             view.addTarget(self, action: #selector(openArchive), for: .touchUpInside)
         case 4:
             let view = makeLeftAligButton()
-            view.setTitle("Select KernInfra Backend", for: .normal)
+            view.setTitle("选择基础核心后端", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -93,7 +93,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             view.addTarget(self, action: #selector(selectBackend), for: .touchUpInside)
         case 5:
             let view = makeLeftAligButton()
-            view.setTitle("Clear Documents", for: .normal)
+            view.setTitle("清理软件包", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -105,11 +105,13 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         case 6:
             let view = makeTintTextView()
             view.text = """
-            Iridium is powered by FoulDecrypt.
+            Iridium基于FoulDecrypt
 
-            FoulDecrypt supports iOS 13.5 and later, and has been tested on iOS 14.2, 14.3 and 13.5 (both arm64 and arm64e).
+            FoulDecrypt支持iOS13.5~14.3
 
-            Any code inside application binary will not be able to execute thanks to our full static decrypter.
+            由于我们是全静态解密，应用程序二进制文件中的任何代码都将无法执行。
+            
+            🇨🇳中文版@刀刀源
             """
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
@@ -123,7 +125,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             }
         case 7:
             let view = makeLeftAligButton()
-            view.setTitle("Get Source: [Iridium]", for: .normal)
+            view.setTitle("查看源码：[Iridium]", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -134,7 +136,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             view.addTarget(self, action: #selector(openSourceIridium), for: .touchUpInside)
         case 8:
             let view = makeLeftAligButton()
-            view.setTitle("Get Source: [FoulDecrypt]", for: .normal)
+            view.setTitle("查看源码：[FoulDecrypt]", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -146,7 +148,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
         case 9:
             let view = makeTintTextView()
             view.text = """
-            Copyright © 2022 Lakr Aream All Rights Reserved
+            Copyright © 2022~2024 Lakr Aream 保留所有权利
             """
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
@@ -160,7 +162,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             }
         case 10:
             let view = makeLeftAligButton()
-            view.setTitle("Twitter: @Lakr233", for: .normal)
+            view.setTitle("推特：@Lakr233", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)
@@ -250,19 +252,19 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
 
     func buildActionList() -> [SelectAction] {
         [
-            .init(text: "Auto Switch", action: { _ in
+            .init(text: "自动切换", action: { _ in
                 Agent.shared.foulOption = .unspecified
             }),
             .init(text: "TFP0", action: { _ in
                 Agent.shared.foulOption = .tfp0
             }),
-            .init(text: "KRW - uncover", action: { _ in
+            .init(text: "KRW - unc0ver", action: { _ in
                 Agent.shared.foulOption = .krw
             }),
             .init(text: "KERNRW - taurine", action: { _ in
                 Agent.shared.foulOption = .kernrw
             }),
-            .init(text: "Cancel", action: { _ in }),
+            .init(text: "取消", action: { _ in }),
         ]
     }
 
@@ -282,10 +284,10 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
 
     @objc func clearDocuments(sender: UIButton) {
         let actions: [SelectAction] = [
-            .init(text: "Confirm", action: { _ in
+            .init(text: "确认", action: { _ in
                 Agent.shared.clearDocuments()
             }),
-            .init(text: "Cancel", action: { _ in }),
+            .init(text: "取消", action: { _ in }),
         ]
         let dropDown = DropDown(anchorView: sender)
         dropDown.dataSource = actions

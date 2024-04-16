@@ -15,10 +15,10 @@ extension URL {
         {
             UIApplication.shared.open(url, options: [:])
         } else {
-            let alert = UIAlertController(title: "Error",
-                                          message: "Filza is required for this operation",
+            let alert = UIAlertController(title: "错误",
+                                          message: "此操作需要安装Filza，有可能需要手动打开Filza。",
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Understand",
+            alert.addAction(UIAlertAction(title: "明白了",
                                           style: .default, handler: nil))
             UIApplication
                 .shared

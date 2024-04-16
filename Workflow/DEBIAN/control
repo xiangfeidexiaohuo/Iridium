@@ -1,11 +1,11 @@
-Package: wiki.qaq.iridium
-Name: iridium
-Description: An iOS application decrypter built ready for use.
+Package: com.dao.iridium
+Name: Iridium 砸壳
+Description: iOS应用解密砸壳工具，适用于iOS13.5-14.3，具体支持系统版本自测。
 Author: Lakr Aream <launchctl@outlook.com>
 Maintainer: Lakr Aream <launchctl@outlook.com>
 Version: @@VERSION@@
-Section: Applications
+Section: 嗨-工具
 Pre-Depends: firmware (>= 13.5)
 Architecture: iphoneos-arm
-depiction: https://moreinfo.thebigboss.org/moreinfo/depiction.php?file=iridiumDp
-tag: purpose::uikit
+Conflicts: com.hk.iridium, wiki.qaq.iridium
+

@@ -30,7 +30,7 @@ extension AppListViewController: UISearchBarDelegate {
     }
 
     func updateSearchResult(with check: String) {
-        assert(Thread.isMainThread, "required for main thread")
+        assert(Thread.isMainThread, "需要主线程")
         guard searchText == check else {
             return
         }
