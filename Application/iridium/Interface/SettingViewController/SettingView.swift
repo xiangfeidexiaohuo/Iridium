@@ -82,7 +82,7 @@ class SettingView: UIViewController, UITableViewDelegate, UITableViewDataSource 
             view.addTarget(self, action: #selector(openArchive), for: .touchUpInside)
         case 4:
             let view = makeLeftAligButton()
-            view.setTitle("选择基础核心后端", for: .normal)
+            view.setTitle("选择KernInfra后端", for: .normal)
             cell.contentView.addSubview(view)
             view.snp.makeConstraints { x in
                 x.left.equalToSuperview().offset(padding)

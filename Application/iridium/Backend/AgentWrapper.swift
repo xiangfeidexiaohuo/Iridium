@@ -59,7 +59,7 @@ class Agent {
                 debugPrint("发现二进制文件位于 \(binary)")
             } else {
                 #if DEBUG
-                    debugPrint("未找到辅助代理的二进制文件，由于调试构建而被忽略")
+                    debugPrint("未找到辅助代理的二进制文件，由于调试构建而被忽略。")
                     binaryLocation = URL(fileURLWithPath: "/\(UUID().uuidString)")
                 #else
                     fatalError("系统上找不到辅助代理")
@@ -251,7 +251,7 @@ class Agent {
         let foulBinary = foulOptionToUrl(with: foulOption)
         output("\n\n[*] 选择后端 \(foulBinary.path)\n\n")
         for (origBinary, destBinary) in binaries {
-            output("\n[*] 调用解密 \(origBinary.lastPathComponent)\n")
+            output("\n[*] 正在解密 \(origBinary.lastPathComponent)\n")
             let recipe = AuxiliaryExecute.spawn(
                 command: binaryLocation.path,
                 args: [
@@ -334,7 +334,7 @@ class Agent {
         try? FileManager.default.removeItem(at: zipTarget)
 
         var currentProgress = [String]()
-        output("\n\n[*] 创建解密包，存档于 \(zipTarget.path)\n\n")
+        output("\n\n[*] 正在创建解密包，将存档于 \(zipTarget.path)\n\n")
 
         let requiredDot = 25 // 4 percent each lol
         output(
