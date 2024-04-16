@@ -94,7 +94,7 @@
         <scene sceneID="kBT-x7-eUW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NvJ-TS-VdO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Apps" image="app.badge.fill" catalog="system" id="8Ik-Je-lHR"/>
+                    <tabBarItem key="tabBarItem" title="应用程序" image="app.badge.fill" catalog="system" id="8Ik-Je-lHR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="tO5-cE-Dje">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -113,7 +113,7 @@
         <scene sceneID="xfQ-1k-Hg8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ewh-Or-ruV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="tUV-Pw-ncS"/>
+                    <tabBarItem key="tabBarItem" title="设置" image="gear" catalog="system" id="tUV-Pw-ncS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Il1-aI-MfR">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
